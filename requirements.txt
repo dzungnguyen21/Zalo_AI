@@ -1,0 +1,44 @@
+# Drone Object Detection Challenge - Requirements
+
+# Deep Learning Frameworks
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Computer Vision
+opencv-python>=4.8.0
+ultralytics>=8.0.0  # YOLOv8
+
+# Feature Extraction Models
+ftfy>=6.1.1
+regex>=2023.0.0
+git+https://github.com/openai/CLIP.git
+transformers>=4.30.0  # For DINOv2
+
+# Tracking and Filtering
+scipy>=1.10.0
+filterpy>=1.4.5
+
+# Data Processing
+numpy<2.0.0  # NumPy 2.x has compatibility issues with torchvision/CLIP
+pandas>=2.0.0
+Pillow>=9.5.0
+
+# Progress and Utilities
+tqdm>=4.65.0
+
+# Evaluation
+scikit-learn>=1.3.0
+
+# Configuration and Visualization
+PyYAML>=6.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Optional: For better performance
+# accelerate>=0.20.0
+# xformers>=0.0.20  # For faster transformers
+
+# Development Tools (optional)
+# jupyter>=1.0.0
+# matplotlib>=3.7.0
+# seaborn>=0.12.0

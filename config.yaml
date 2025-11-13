@@ -1,0 +1,114 @@
+# Configuration File for Drone Object Detection Pipeline
+# Copy this file and modify parameters for different experiments
+
+# Dataset Configuration
+dataset:
+  train_dir: "./train"
+  test_dir: "./public_test"
+  annotations_path: "./train/annotations/annotations.json"
+
+# Model Configuration
+models:
+  # Feature extraction model: clip, dinov2, or both
+  feature_model: "clip"
+  
+  # YOLO detector model
+  # Options: yolov8n.pt, yolov8s.pt, yolov8m.pt, yolov8l.pt, yolov8x.pt
+  # n=fastest, x=most accurate
+  detector_model: "yolov8x.pt"
+
+# Detection Parameters
+detection:
+  # Confidence threshold for YOLO detections (0.0-1.0)
+  # Lower = more candidates, higher = fewer but more confident
+  confidence_threshold: 0.25
+  
+  # IoU threshold for Non-Maximum Suppression
+  iou_threshold: 0.45
+
+# Similarity Matching
+matching:
+  # Minimum similarity score to accept a detection (0.0-1.0)
+  # Higher = stricter matching
+  similarity_threshold: 0.5
+  
+  # Weight for detection confidence vs similarity (0.0-1.0)
+  detection_weight: 0.5
+  similarity_weight: 0.5
+  
+  # Use temporal similarity boosting
+  use_temporal: true
+  temporal_window: 5
+  temporal_weight: 0.3
+
+# Tracking Configuration
+tracking:
+  # Enable object tracking
+  enabled: true
+  
+  # Maximum frames to keep a track alive without detections
+  max_age: 30
+  
+  # Minimum hits before confirming a track
+  min_hits: 3
+  
+  # IoU threshold for matching detections to tracks
+  iou_threshold: 0.3
+  
+  # Feature similarity threshold for re-identification
+  feature_threshold: 0.4
+  
+  # Weight for feature similarity in tracking (0.0-1.0)
+  feature_weight: 0.5
+
+# Processing Configuration
+processing:
+  # Process every N-th frame (1 = all frames)
+  # Higher = faster but may miss detections
+  frame_skip: 1
+  
+  # Maximum number of frames to process per video (null = all)
+  max_frames: null
+  
+  # Device to use: cuda or cpu
+  device: "cuda"
+  
+  # Batch size for batch processing (if applicable)
+  batch_size: 1
+
+# Output Configuration
+output:
+  predictions_path: "predictions.json"
+  evaluation_path: "evaluation_results.json"
+  
+  # Save visualization videos
+  save_visualizations: false
+  visualization_dir: "./visualizations"
+
+# Experiment Presets
+# Uncomment one of these to use preset configurations
+
+# # Fast Mode (for quick testing)
+# fast_mode:
+#   feature_model: "clip"
+#   detector_model: "yolov8n.pt"
+#   frame_skip: 5
+#   confidence_threshold: 0.2
+#   use_temporal: false
+
+# # Accurate Mode (best quality)
+# accurate_mode:
+#   feature_model: "both"
+#   detector_model: "yolov8x.pt"
+#   frame_skip: 1
+#   confidence_threshold: 0.15
+#   similarity_threshold: 0.45
+#   use_temporal: true
+
+# # Balanced Mode (good speed and accuracy)
+# balanced_mode:
+#   feature_model: "clip"
+#   detector_model: "yolov8l.pt"
+#   frame_skip: 2
+#   confidence_threshold: 0.2
+#   similarity_threshold: 0.5
